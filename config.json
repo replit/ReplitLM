@@ -3,7 +3,7 @@
   "alibi": true,
   "alibi_bias_max": 8,
   "architectures": [
-    "MosaicGPT"
+    "ReplitLM"
   ],
   "attn_clip_qkv": null,
   "attn_impl": "torch",
@@ -11,8 +11,8 @@
   "attn_qk_ln": false,
   "attn_uses_sequence_id": false,
   "auto_map": {
-    "AutoConfig": "configuration_replit_lm.MosaicGPTConfig",
-    "AutoModelForCausalLM": "replit_lm.MosaicGPT"
+    "AutoConfig": "configuration_replit_lm.ReplitLMConfig",
+    "AutoModelForCausalLM": "replit_lm.ReplitLM"
   },
   "d_model": 2560,
   "emb_init_std": null,

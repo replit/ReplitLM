@@ -1,6 +1,8 @@
 # Copyright 2022 MosaicML Examples authors
 # SPDX-License-Identifier: Apache-2.0
 
+"""Forked for ReplitLM"""
+
 """A HuggingFace-style model configuration."""
 
 from typing import Optional, Tuple, Union
@@ -8,7 +10,7 @@ from typing import Optional, Tuple, Union
 from transformers import PretrainedConfig
 
 
-class MosaicGPTConfig(PretrainedConfig):
+class ReplitLMConfig(PretrainedConfig):
     model_type = 'mosaic_gpt'
 
     def __init__(
@@ -48,7 +50,7 @@ class MosaicGPTConfig(PretrainedConfig):
         use_cache: bool = False,
         **kwargs,
     ):
-        """The MosaicGPT configuration class.
+        """The ReplitLM configuration class.
 
         Args:
             d_model (int): The size of the embedding dimension of the model.

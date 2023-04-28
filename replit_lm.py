@@ -19,16 +19,16 @@ from transformers.modeling_outputs import CausalLMOutputWithPast
 from .attention import attn_bias as module_attn_bias, attn_bias_shape as module_attn_bias_shape
 from .gpt_blocks import GPTBlock
 from .configuration_replit_lm import \
-    MosaicGPTConfig
+    ReplitLMConfig
 from .param_init_fns import MODEL_INIT_REGISTRY
 from .low_precision_layernorm import LPLayerNorm
 
 
-class MosaicGPT(PreTrainedModel):
-    config_class = MosaicGPTConfig
+class ReplitLM(PreTrainedModel):
+    config_class = ReplitLMConfig
     base_model_prefix = 'mosaic_gpt'
 
-    def __init__(self, config: MosaicGPTConfig):
+    def __init__(self, config: ReplitLMConfig):
         super().__init__(config)
 
         if config.attn_impl == 'flash' and config.alibi:
@@ -249,34 +249,34 @@ class MosaicGPT(PreTrainedModel):
 
         # These args are passed in by keyword in huggingface's generate function
         # https://github.com/huggingface/transformers/blob/68287689f2f0d8b7063c400230b3766987abf18d/src/transformers/generation/utils.py#L2201-L2206
-        # but have not yet been fully implemented in MosaicGPT
+        # but have not yet been fully implemented in ReplitLM
         if not return_dict:
             raise NotImplementedError(
-                'return_dict False is not implemented yet for MosaicGPT')
+                'return_dict False is not implemented yet for ReplitLM')
         if output_attentions:
             raise NotImplementedError(
-                'output_attentions is not implemented yet for MosaicGPT')
+                'output_attentions is not implemented yet for ReplitLM')
 
         if attention_mask is not None and attention_mask[:, 0].sum(
         ) != attention_mask.shape[0] and self.training:
             raise NotImplementedError(
-                'MosaicGPT does not support training with left padding.')
+                'ReplitLM does not support training with left padding.')
 
         if self.prefix_lm and prefix_mask is None:
             raise ValueError(
-                'prefix_mask is a required argument when MosaicGPT is configured with prefix_lm=True.'
+                'prefix_mask is a required argument when ReplitLM is configured with prefix_lm=True.'
             )
 
         if self.training:
             if self.attn_uses_sequence_id and sequence_id is None:
                 raise ValueError(
-                    'sequence_id is a required argument when MosaicGPT is configured with attn_uses_sequence_id=True ' +\
+                    'sequence_id is a required argument when ReplitLM is configured with attn_uses_sequence_id=True ' +\
                     'and the model is in train mode.'
                 )
             elif (self.attn_uses_sequence_id is False) and (sequence_id
                                                             is not None):
                 warnings.warn(
-                    'MosaicGPT received non-None input for `sequence_id` but is configured with attn_uses_sequence_id=False. ' +\
+                    'ReplitLM received non-None input for `sequence_id` but is configured with attn_uses_sequence_id=False. ' +\
                     'This input will be ignored. If you want the model to use `sequence_id`, set attn_uses_sequence_id to True.'
                 )
 
@@ -397,12 +397,12 @@ class MosaicGPT(PreTrainedModel):
                                       **kwargs):
         if inputs_embeds is not None:
             raise NotImplementedError(
-                'inputs_embeds is not implemented for MosaicGPT yet')
+                'inputs_embeds is not implemented for ReplitLM yet')
 
         attention_mask = kwargs['attention_mask'].bool()
         if attention_mask[:, -1].sum() != attention_mask.shape[0]:
             raise NotImplementedError(
-                'MosaicGPT does not support generation with right padding.')
+                'ReplitLM does not support generation with right padding.')
 
         if self.attn_uses_sequence_id and self.training:
             sequence_id = torch.zeros_like(input_ids[:1])
@@ -418,7 +418,7 @@ class MosaicGPT(PreTrainedModel):
             # This requires that we're using the cache
             if kwargs.get('use_cache') == False:
                 raise NotImplementedError(
-                    'MosaicGPT with prefix_lm=True does not support use_cache=False.'
+                    'ReplitLM with prefix_lm=True does not support use_cache=False.'
                 )
         else:
             prefix_mask = None
