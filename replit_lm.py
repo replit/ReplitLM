@@ -18,7 +18,7 @@ from transformers.modeling_outputs import CausalLMOutputWithPast
 
 from .attention import attn_bias as module_attn_bias, attn_bias_shape as module_attn_bias_shape
 from .gpt_blocks import GPTBlock
-from .configuration_mosaic_gpt import \
+from .configuration_replit_lm import \
     MosaicGPTConfig
 from .param_init_fns import MODEL_INIT_REGISTRY
 from .low_precision_layernorm import LPLayerNorm
