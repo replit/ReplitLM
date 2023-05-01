@@ -39,7 +39,7 @@
   "softmax_scale": null,
   "tokenizer_name": "replit/replit-code-v1-3b",
   "torch_dtype": "float32",
-  "transformers_version": "4.27.4",
+  "transformers_version": "4.26.1",
   "use_cache": false,
   "verbose": 0,
   "vocab_size": 32768
