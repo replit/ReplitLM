@@ -19,7 +19,7 @@ Permalink: https://github.com/huggingface/transformers/blob/04ab5605fbb4ef207b10
 Class is modified for compatibility with custom vocabulary and to achieve desired encode/decode behavior for Replit Code v1.3b model.
 """
 
-""" Tokenizer class for replit-code-v1-3b model"""
+""" Tokenizer class for ReplitLM"""
 
 import os
 import sentencepiece as spm
@@ -29,6 +29,7 @@ from transformers import PreTrainedTokenizer
 from typing import Any, Dict, List, Optional, Tuple
 
 VOCAB_FILES_NAMES = {"vocab_file": "spiece.model"}
+
 
 class ReplitLMTokenizer(PreTrainedTokenizer):
   """

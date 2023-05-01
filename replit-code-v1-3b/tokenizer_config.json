@@ -1,7 +1,7 @@
 {
     "auto_map": {
       "AutoTokenizer": [
-        "ReplitLMTokenizer.ReplitLMTokenizer",
+        "replit_lm_tokenizer.ReplitLMTokenizer",
         null
       ]
     },

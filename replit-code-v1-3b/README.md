@@ -21,7 +21,7 @@ from transformers import AutoModelForCausalLM
 model = AutoModelForCausalLM.from_pretrained('replit/replit-code-v1-3b', trust_remote_code=True)
 ```
 
-To use the optimized Triton implementation of FlashAttention on GPUs, and use BF16 precision, the model to `bfloat16` use it as follows:
+To use the optimized Triton implementation of FlashAttention on GPUs with BF16 precision, move the model to `bfloat16` and use it as follows:
 
 ```python
 from transformers import AutoModelForCausalLM

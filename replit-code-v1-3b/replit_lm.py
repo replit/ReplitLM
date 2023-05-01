@@ -17,7 +17,7 @@ from typing import List, Optional, Tuple
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from transformers import AutoTokenizer, PreTrainedModel
+from transformers import PreTrainedModel
 from transformers.modeling_outputs import CausalLMOutputWithPast
 
 from .attention import attn_bias as module_attn_bias, attn_bias_shape as module_attn_bias_shape

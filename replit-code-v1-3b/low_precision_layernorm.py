@@ -1,6 +1,7 @@
 import torch
 import torch.nn.functional as F
 
+
 class LPLayerNorm(torch.nn.LayerNorm):
     def __init__(self, normalized_shape, eps=1e-05, elementwise_affine=True, device=None, dtype=None):
         super().__init__(
