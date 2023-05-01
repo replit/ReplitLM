@@ -1,0 +1,18 @@
+{
+    "auto_map": {
+      "AutoTokenizer": [
+        "replit_lm_tokenizer.ReplitLMTokenizer",
+        null
+      ]
+    },
+    "bos_token": null,
+    "clean_up_tokenization_spaces": false,
+    "eos_token": "<|endoftext|>",
+    "model_max_length": 2048,
+    "pad_token": "<|pad|>",
+    "padding_side": "right",
+    "sep_token": null,
+    "sp_model_kwargs": {},
+    "tokenizer_class": "ReplitLMTokenizer",
+    "unk_token": "<|unk|>"
+}
