@@ -11,7 +11,7 @@ from transformers import PretrainedConfig
 
 
 class ReplitLMConfig(PretrainedConfig):
-    model_type = 'mosaic_gpt'
+    model_type = 'replit_lm'
 
     def __init__(
         self,

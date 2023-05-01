@@ -30,7 +30,7 @@ from .low_precision_layernorm import LPLayerNorm
 
 class ReplitLM(PreTrainedModel):
     config_class = ReplitLMConfig
-    base_model_prefix = 'mosaic_gpt'
+    base_model_prefix = 'replit_lm'
 
     def __init__(self, config: ReplitLMConfig):
         super().__init__(config)
