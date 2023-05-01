@@ -66,10 +66,10 @@ def scaled_multihead_dot_product_attention(
     if key_padding_mask is not None:
         if attn_bias is not None:
             warnings.warn(
-                'Propogating key_padding_mask to the attention module ' +\
-                'and applying it within the attention module can cause ' +\
-                'unneccessary computation/memory usage. Consider integrating ' +\
-                'into attn_bias once and passing that to each attention ' +\
+                'Propogating key_padding_mask to the attention module ' +
+                'and applying it within the attention module can cause ' +
+                'unneccessary computation/memory usage. Consider integrating ' +
+                'into attn_bias once and passing that to each attention ' +
                 'module instead.'
             )
         attn_weight = attn_weight.masked_fill(
@@ -106,7 +106,8 @@ def check_valid_inputs(*tensors, valid_dtypes=[torch.float16, torch.bfloat16]):
         if tensor.dtype not in valid_dtypes:
             raise TypeError(f'{tensor.dtype=} must be in {valid_dtypes=}.')
         if not tensor.is_cuda:
-            raise TypeError(f'Inputs must be cuda tensors ({tensor.is_cuda=}).')
+            raise TypeError(
+                f'Inputs must be cuda tensors ({tensor.is_cuda=}).')
 
 
 def flash_attn_fn(
@@ -188,7 +189,8 @@ def triton_flash_attn_fn(
     try:
         from flash_attn import flash_attn_triton  # type: ignore
     except:
-        raise RuntimeError('Please install flash_attn==0.2.8 and triton==2.0.0.dev20221202.')
+        raise RuntimeError(
+            'Please install flash_attn==0.2.8 and triton==2.0.0.dev20221202.')
 
     check_valid_inputs(query, key, value)
 
@@ -202,10 +204,10 @@ def triton_flash_attn_fn(
 
     if key_padding_mask is not None:
         warnings.warn(
-            'Propagating key_padding_mask to the attention module ' +\
-            'and applying it within the attention module can cause ' +\
-            'unnecessary computation/memory usage. Consider integrating ' +\
-            'into attn_bias once and passing that to each attention ' +\
+            'Propagating key_padding_mask to the attention module ' +
+            'and applying it within the attention module can cause ' +
+            'unnecessary computation/memory usage. Consider integrating ' +
+            'into attn_bias once and passing that to each attention ' +
             'module instead.'
         )
         b_size, s_k = key_padding_mask.shape[:2]
@@ -278,16 +280,16 @@ class MultiheadAttention(nn.Module):
         elif self.attn_impl == 'triton':
             self.attn_fn = triton_flash_attn_fn
             warnings.warn(
-                'While `attn_impl: triton` can be faster than `attn_impl: flash` ' +\
-                'it uses more memory. When training larger models this can trigger '  +\
-                'alloc retries which hurts performance. If encountered, we recommend ' +\
+                'While `attn_impl: triton` can be faster than `attn_impl: flash` ' +
+                'it uses more memory. When training larger models this can trigger ' +
+                'alloc retries which hurts performance. If encountered, we recommend ' +
                 'using `attn_impl: flash` if your model does not use `alibi` or `prefix_lm`.')
         elif self.attn_impl == 'torch':
             self.attn_fn = scaled_multihead_dot_product_attention
             if torch.cuda.is_available():
                 warnings.warn(
-                    'Using `attn_impl: torch`. If your model does not use `alibi` or ' +\
-                    '`prefix_lm` we recommend using `attn_impl: flash` otherwise ' +\
+                    'Using `attn_impl: torch`. If your model does not use `alibi` or ' +
+                    '`prefix_lm` we recommend using `attn_impl: flash` otherwise ' +
                     'we recommend using `attn_impl: triton`.'
                 )
         else:

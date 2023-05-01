@@ -11,14 +11,14 @@ Inspired by https://github.com/karpathy/minGPT/blob/master/mingpt/model.py
 """
 
 import math
-import warnings
-from typing import List, Optional, Tuple
-
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+import warnings
+
 from transformers import PreTrainedModel
 from transformers.modeling_outputs import CausalLMOutputWithPast
+from typing import List, Optional, Tuple
 
 from .attention import attn_bias as module_attn_bias, attn_bias_shape as module_attn_bias_shape
 from .gpt_blocks import GPTBlock

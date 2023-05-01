@@ -87,7 +87,7 @@ def generic_param_init_fn_(
     if init_div_is_residual is not False:
         if verbose > 1:
             warnings.warn(
-                f'Initializing _is_residual layers then dividing them by {div_is_residual}.' +\
+                f'Initializing _is_residual layers then dividing them by {div_is_residual}.' +
                 f'set `init_div_is_residual: false` in model config to disable this.'
             )
 
@@ -330,7 +330,7 @@ def kaiming_uniform_param_init_fn_(
 
     if verbose > 1:
         warnings.warn(
-            f'Using nn.init.kaiming_uniform_ init fn with parameters: ' +\
+            f'Using nn.init.kaiming_uniform_ init fn with parameters: ' +
             f'a={init_gain}, mode={fan_mode}, nonlinearity={init_nonlinearity}'
         )
 
@@ -368,7 +368,7 @@ def kaiming_normal_param_init_fn_(
 
     if verbose > 1:
         warnings.warn(
-            f'Using nn.init.kaiming_normal_ init fn with parameters: ' +\
+            f'Using nn.init.kaiming_normal_ init fn with parameters: ' +
             f'a={init_gain}, mode={fan_mode}, nonlinearity={init_nonlinearity}'
         )
 
@@ -405,7 +405,7 @@ def xavier_uniform_param_init_fn_(
 
     if verbose > 1:
         warnings.warn(
-            f'Using torch.nn.init.xavier_uniform_ init fn with parameters: ' +\
+            f'Using torch.nn.init.xavier_uniform_ init fn with parameters: ' +
             f'gain={init_gain}'
         )
 
@@ -436,7 +436,7 @@ def xavier_normal_param_init_fn_(
 
     if verbose > 1:
         warnings.warn(
-            f'Using torch.nn.init.xavier_normal_ init fn with parameters: ' +\
+            f'Using torch.nn.init.xavier_normal_ init fn with parameters: ' +
             f'gain={init_gain}'
         )
 

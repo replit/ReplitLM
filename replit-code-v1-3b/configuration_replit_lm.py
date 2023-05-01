@@ -5,11 +5,9 @@
 
 """A HuggingFace-style model configuration."""
 
+
 from typing import Optional, Tuple, Union
-
 from transformers import PretrainedConfig
-
-
 class ReplitLMConfig(PretrainedConfig):
     model_type = 'replit_lm'
 
