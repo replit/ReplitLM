@@ -16,6 +16,8 @@ datasets:
 
 ```python
 from transformers import AutoModelForCausalLM
+
+# load model
 model = AutoModelForCausalLM.from_pretrained('replit/replit-code-v1-3b', trust_remote_code=True)
 ```
 
@@ -23,10 +25,12 @@ To use the optimized triton implementation of FlashAttention on GPUs, and use BF
 
 ```python
 from transformers import AutoModelForCausalLM
-model = AutoModelForCausalLM.from_pretrained('replit/replit-code-v1-3b', trust_remote_code=True, attn_impl='triton')
 
+# load model
+model = AutoModelForCausalLM.from_pretrained('replit/replit-code-v1-3b', trust_remote_code=True, attn_impl='triton')
 model.to(device='cuda:0', dtype=torch.bfloat16)
 
+# forward pass
 x = torch.tensor([[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]])
 x = x.to(device='cuda:0', dtype=torch.bfloat16)
 y = model(x)
@@ -45,13 +49,15 @@ The tokenizer can be used as follows:
 
 ```python
 from transformers import AutoTokenizer
+
+# load tokenizer
 tokenizer = AutoTokenizer.from_pretrained('replit/replit-code-v1-3b', trust_remote_code=True)
 
 # single input example
 x = tokenizer.encode('def hello():\n  print("hello world")\n', return_tensors='pt')
-y = model(x)
+y = model.generate(x)
 
-generated_code = tokenizer.decode(y.logits[0], skip_special_tokens=True, clean_up_tokenization_spaces=False)
+generated_code = tokenizer.decode(y[0], skip_special_tokens=True, clean_up_tokenization_spaces=False)
 print(generated_code)
 ```
 
@@ -69,7 +75,7 @@ tokenizer = transformers.AutoTokenizer.from_pretrained('replit/replit-code-v1-3b
 model = transformers.AutoModelForCausalLM.from_pretrained('replit/replit-code-v1-3b', trust_remote_code=True)
 
 x = tokenizer.encode('def fibonacci(n): ', return_tensors='pt')
-y = model.generate(x, max_length=100, do_sample=True, top_p=0.95, top_k=60, temperature=0.8, num_return_sequences=1, eos_token_id=tokenizer.eos_token_id)
+y = model.generate(x, max_length=100, do_sample=True, top_p=0.95, top_k=60, temperature=0.2, num_return_sequences=1, eos_token_id=tokenizer.eos_token_id)
 
 generated_code = tokenizer.decode(y[0], skip_special_tokens=True, clean_up_tokenization_spaces=False)
 print(generated_code)
@@ -105,7 +111,6 @@ import numpy as np
 ## Inference
 
 ## Evaluation
-
 
 
 ## Model Hash
