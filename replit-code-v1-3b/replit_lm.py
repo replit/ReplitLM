@@ -1,6 +1,10 @@
 # Copyright 2022 MosaicML Examples authors
 # SPDX-License-Identifier: Apache-2.0
 
+"""Forked from the MosaicGPT model class from the Mosaic Examples codebase of date May 1st, 2023.
+Permalink: https://github.com/mosaicml/examples/blob/52cd4fef69497f225a034fcd10692f8613732d10/examples/llm/src/models/mosaic_gpt/mosaic_gpt.py
+"""
+
 """A simple, flexible implementation of a GPT model.
 
 Inspired by https://github.com/karpathy/minGPT/blob/master/mingpt/model.py

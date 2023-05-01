@@ -1,3 +1,23 @@
+# Copyright (c) 2020, NVIDIA CORPORATION.  All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+"""
+Forked from the file src/transformers/models/bert_generation/tokenization_bert_generation.py from the HuggingFace Transformers library.
+Permalink: https://github.com/huggingface/transformers/blob/04ab5605fbb4ef207b10bf2772d88c53fc242e83/src/transformers/models/bert_generation/tokenization_bert_generation.py
+
+Class is modified for compatibility with custom vocabulary and to achieve desired encode/decode behavior for Replit Code v1.3b model.
+"""
 
 """ Tokenizer class for replit-code-v1-3b model"""
 
@@ -19,14 +39,14 @@ class ReplitLMTokenizer(PreTrainedTokenizer):
         vocab_file (`str`):
             [SentencePiece](https://github.com/google/sentencepiece) file (generally has a *.spm* extension) that
             contains the vocabulary necessary to instantiate a tokenizer.
-        eos_token (`str`, *optional*, defaults to `"</s>"`):
+        eos_token (`str`, *optional*, defaults to `"<|endoftext|>"`):
             The end of sequence token.
-        bos_token (`str`, *optional*, defaults to `"<s>"`):
+        bos_token (`str`, *optional*, defaults to `None`):
             The begin of sequence token.
-        unk_token (`str`, *optional*, defaults to `"<unk>"`):
+        unk_token (`str`, *optional*, defaults to `"<|unk|>"`):
             The unknown token. A token that is not in the vocabulary cannot be converted to an ID and is set to be this
             token instead.
-        pad_token (`str`, *optional*, defaults to `"<pad>"`):
+        pad_token (`str`, *optional*, defaults to `"<|pad|>"`):
             The token used for padding, for example when batching sequences of different lengths.
         sp_model_kwargs (`dict`, *optional*):
             Will be passed to the `SentencePieceProcessor.__init__()` method. The [Python wrapper for
@@ -51,8 +71,8 @@ class ReplitLMTokenizer(PreTrainedTokenizer):
     vocab_file,
     bos_token=None,
     eos_token="<|endoftext|>",
-    unk_token="<unk>",
-    pad_token=None,
+    unk_token="<|unk|>",
+    pad_token="<|pad|>",
     sep_token=None,
     sp_model_kwargs: Optional[Dict[str, Any]] = None,
     **kwargs,
