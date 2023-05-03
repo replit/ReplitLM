@@ -1,5 +1,5 @@
 {
   "_from_model_config": true,
-  "transformers_version": "4.26.1",
+  "transformers_version": "4.27.4",
   "use_cache": false
 }
