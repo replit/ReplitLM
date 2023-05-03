@@ -95,8 +95,13 @@ from transformers import AutoModelForCausalLM
 model = AutoModelForCausalLM.from_pretrained('replit/replit-code-v1-3b', trust_remote_code=True)
 ```
 
-To use the optimized Triton implementation of FlashAttention on GPUs with BF16 precision, move the model to `bfloat16` and use it as follows:
+To use the optimized Triton implementation of FlashAttention on GPUs with BF16 precision, first install the following dependencies: 
+```
+flash-attn==0.2.8
+triton==2.0.0.dev20221202
+```
 
+Then, move the model to `bfloat16` and use it as follows:
 ```python
 from transformers import AutoModelForCausalLM
 
@@ -168,7 +173,7 @@ Note that as with all code generation models, post-processing of the generated c
 - stop generation when the EOS token is encountered
 - remove trailing whitespaces
 - set `max_tokens` to a reasonable value based on your completion use case
-- truncate generation to stop words such as `return`, `def`, "```", "`\n\n\n`" to avoid generating incomplete code when `max_tokens` is larger than the length of the expected generated code.
+- truncate generation to stop words such as `return`, `def`, "```", "`\n\n\n`" to avoid generating incomplete code when `max_tokens` is larger than the length of the expected generated code.
 
 
 
