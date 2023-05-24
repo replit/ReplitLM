@@ -173,9 +173,4 @@ Note that as with all code generation models, post-processing of the generated c
 - stop generation when the EOS token is encountered
 - remove trailing whitespaces
 - set `max_tokens` to a reasonable value based on your completion use case
-- truncate generation to stop words such as `return`, `def`, "```", "`\n\n\n`" to avoid generating incomplete code when `max_tokens` is larger than the length of the expected generated code.
-
-
-
-## Model Hash
-5bc28ce32c6f9aec935ead7b60ea1c46
+- truncate generation to stop words such as `return`, `def`, "```", "`\n\n\n`" to avoid generating incomplete code when `max_tokens` is larger than the length of the expected generated code.

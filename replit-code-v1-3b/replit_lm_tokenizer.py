@@ -16,19 +16,15 @@
 Forked from the file src/transformers/models/bert_generation/tokenization_bert_generation.py from the HuggingFace Transformers library.
 Permalink: https://github.com/huggingface/transformers/blob/04ab5605fbb4ef207b10bf2772d88c53fc242e83/src/transformers/models/bert_generation/tokenization_bert_generation.py
 
-Class is modified for compatibility with custom vocabulary and to achieve desired encode/decode behavior for Replit Code v1.3b model.
+Tokenizer class for ReplitLM 
+Class is modified for compatibility with custom vocabulary and to achieve desired encode/decode behavior for Replit Code V1 3B model.
 """
-
-""" Tokenizer class for ReplitLM"""
-
-
 import os
 import sentencepiece as spm
 from shutil import copyfile
 from transformers import PreTrainedTokenizer
 from typing import Any, Dict, List, Optional, Tuple
-VOCAB_FILES_NAMES = {"vocab_file": "spiece.model"}
-
+VOCAB_FILES_NAMES = {'vocab_file': 'spiece.model'}
 
 class ReplitLMTokenizer(PreTrainedTokenizer):
     """
@@ -61,37 +57,14 @@ class ReplitLMTokenizer(PreTrainedTokenizer):
               - `alpha`: Smoothing parameter for unigram sampling, and dropout probability of merge operations for
                 BPE-dropout.
       """
-
     vocab_files_names = VOCAB_FILES_NAMES
     prefix_tokens: List[int] = []
-    model_input_names = ["input_ids", "attention_mask"]
+    model_input_names = ['input_ids', 'attention_mask']
 
-    def __init__(
-        self,
-        vocab_file,
-        bos_token=None,
-        eos_token="<|endoftext|>",
-        unk_token="<|unk|>",
-        pad_token="<|pad|>",
-        sep_token=None,
-        sp_model_kwargs: Optional[Dict[str, Any]] = None,
-        **kwargs,
-    ) -> None:
+    def __init__(self, vocab_file, bos_token=None, eos_token='<|endoftext|>', unk_token='<|unk|>', pad_token='<|pad|>', sep_token=None, sp_model_kwargs: Optional[Dict[str, Any]]=None, **kwargs) -> None:
         self.sp_model_kwargs = {} if sp_model_kwargs is None else sp_model_kwargs
-
-        # Add extra_ids to the special token list
-        super().__init__(
-            bos_token=bos_token,
-            eos_token=eos_token,
-            unk_token=unk_token,
-            pad_token=pad_token,
-            sep_token=sep_token,
-            sp_model_kwargs=self.sp_model_kwargs,
-            **kwargs,
-        )
-
+        super().__init__(bos_token=bos_token, eos_token=eos_token, unk_token=unk_token, pad_token=pad_token, sep_token=sep_token, sp_model_kwargs=self.sp_model_kwargs, **kwargs)
         self.vocab_file = vocab_file
-
         self.sp_model = spm.SentencePieceProcessor(**self.sp_model_kwargs)
         self.sp_model.Load(vocab_file)
 
@@ -100,23 +73,19 @@ class ReplitLMTokenizer(PreTrainedTokenizer):
         return self.sp_model.get_piece_size()
 
     def get_vocab(self):
-        vocab = {self.convert_ids_to_tokens(
-            i): i for i in range(self.vocab_size)}
+        vocab = {self.convert_ids_to_tokens(i): i for i in range(self.vocab_size)}
         vocab.update(self.added_tokens_encoder)
         return vocab
 
     def __getstate__(self):
         state = self.__dict__.copy()
-        state["sp_model"] = None
+        state['sp_model'] = None
         return state
 
     def __setstate__(self, d):
         self.__dict__ = d
-
-        # for backward compatibility
-        if not hasattr(self, "sp_model_kwargs"):
+        if not hasattr(self, 'sp_model_kwargs'):
             self.sp_model_kwargs = {}
-
         self.sp_model = spm.SentencePieceProcessor(**self.sp_model_kwargs)
         self.sp_model.load(self.vocab_file)
 
@@ -137,25 +106,14 @@ class ReplitLMTokenizer(PreTrainedTokenizer):
         """Converts a sequence of tokens (string) in a single string."""
         return self.sp_model.decode(tokens)
 
-    def save_vocabulary(self,
-                        save_directory: str,
-                        filename_prefix: Optional[str] = None) -> Tuple[str]:
-
+    def save_vocabulary(self, save_directory: str, filename_prefix: Optional[str]=None) -> Tuple[str]:
         if not os.path.isdir(save_directory):
-            raise ValueError(
-                f"Vocabulary path ({save_directory}) should be a directory")
-
-        out_vocab_file = os.path.join(
-            save_directory, (filename_prefix + "-" if filename_prefix else "") +
-            VOCAB_FILES_NAMES["vocab_file"])
-
-        if os.path.abspath(
-                self.vocab_file) != os.path.abspath(out_vocab_file) and os.path.isfile(
-                self.vocab_file):
+            raise ValueError(f'Vocabulary path ({save_directory}) should be a directory')
+        out_vocab_file = os.path.join(save_directory, (filename_prefix + '-' if filename_prefix else '') + VOCAB_FILES_NAMES['vocab_file'])
+        if os.path.abspath(self.vocab_file) != os.path.abspath(out_vocab_file) and os.path.isfile(self.vocab_file):
             copyfile(self.vocab_file, out_vocab_file)
         elif not os.path.isfile(self.vocab_file):
-            with open(out_vocab_file, "wb") as fi:
+            with open(out_vocab_file, 'wb') as fi:
                 content_spiece_model = self.sp_model.serialized_model_proto()
                 fi.write(content_spiece_model)
-
-        return (out_vocab_file, )
+        return (out_vocab_file,)
