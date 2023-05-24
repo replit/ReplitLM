@@ -9,12 +9,10 @@
   "clean_up_tokenization_spaces": false,
   "eos_token": "<|endoftext|>",
   "model_max_length": 2048,
-  "name_or_path": "/home/madhav_singhal/ReplitLM/hf_converted_foundry_models/replit-code-v1",
   "pad_token": "<|pad|>",
   "padding_side": "right",
   "sep_token": null,
   "sp_model_kwargs": {},
-  "special_tokens_map_file": "/home/madhav_singhal/.cache/huggingface/hub/models--replit--replit-code-v1-3b/snapshots/9eceafb041eb8abd565dabfbfadd328869140011/special_tokens_map.json",
   "tokenizer_class": "ReplitLMTokenizer",
   "unk_token": "<|unk|>"
 }
