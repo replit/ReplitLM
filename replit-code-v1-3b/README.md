@@ -73,7 +73,9 @@ Replit intends this model be used by anyone as a foundational model for applicat
 The pre-training dataset may have contained offensive or inappropriate content even after applying data cleansing filters, and such content may be reflected in model generated text. We recommend that users exercise reasonable caution when using in production systems. Do not use for any applications that may cause harm or distress to individuals or groups.
 
 ## License
-The model checkpoint and vocabulary file are licensed under the Creative Commons license (CC BY-SA-4.0).  Under the license, you must give credit to Replit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests that Replit endorses you or your use.
+The model checkpoint and vocabulary file are licensed under the Creative Commons license (CC BY-SA-4.0). Under the license, you must give credit to Replit, provide a link to the license, and indicate if changes were made. You may do so in any reasonable manner, but not in any way that suggests that Replit endorses you or your use.
+
+The source code files (`*.py`) are licensed under the Apache 2.0 license.
 
 ## Contact
 For questions and comments about the model, please post in the community section. 
