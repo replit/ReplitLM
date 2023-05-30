@@ -26,10 +26,10 @@ This is being continuously updated to add more ways to use and build on top of o
 ## Releases
 May 2, 2023: [`replit-code-v1-3b`](https://github.com/replit/ReplitLM/tree/main/replit-code-v1-3b)
 
-## Using the Replit Models
+## Usage
 
 
-### Hosted Demo
+#### Hosted Demo
 
 We also have a GPU-powered Space for the `replit-code-v1-3b` model where you can use the model directly!
 
@@ -37,7 +37,7 @@ We also have a GPU-powered Space for the `replit-code-v1-3b` model where you can
 
 It's fast!
 
-### Using the Models with Huggingface Transformers
+#### Using with Huggingface Transformers
 
 All released Replit models are available on Huggingface under the [Replit organization page](https://huggingface.co/replit) and can be used with the Huggingface Transformers library.
 
@@ -58,6 +58,8 @@ Our Replit models are compatible with LLM Foundry and can be trained/tuned in a 
 
 Using these you can train the Replit models on your own datasets.
 
+The following steps give you the outline of what needs to be done to train the models with links to the LLM Foundry documentation sections needed for each step:
+
 
 #### (0) Setup your project, install and LLM Foundry
 
@@ -77,10 +79,10 @@ The types of dataset sources supported are JSON datasets and Huggingface Dataset
 
 The [Data Preparation](https://github.com/mosaicml/llm-foundry/tree/main/scripts/data_prep) documentation in LLM Foundry gives the steps on how to do this.
 
-Note that you can do this conversion locally or on a remote VM depending on the size of your dataset. You can also store out your dataset locally or to a remote cloud object storage location such as S3 and GCS as well. Running the conversion in a remote VM and then saving out to a cloud object store is the best way to do this for large datasets.
+Note that you can do this conversion locally or on a remote VM depending on the size of your dataset. You can also store out your dataset locally or to a remote cloud object storage location such as S3 and GCS as well.
 
 - If you want to save out locally, you can set the `out_root` argument in the conversion script, and then just point to this path in the configuration yaml with the `data_local` key as you'll see in the next step.
-- If you want to save ut 
+- If you want to save out to a remote cloud store such as GCS or S3, just set the `out_root` argument to a path that starts with `gs://` or `s3://` and then just point to this path in the configuration yaml with the `data_remote` key as you'll see in the next step.
 
 To test the converted dataset and check that its working with the dataloader, you can follow the [Test the Dataloader](https://github.com/mosaicml/llm-foundry/tree/main/scripts/train#test-the-dataloader) section in LLM Foundry docs. 
 
