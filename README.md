@@ -12,9 +12,11 @@ May 2, 2023: [`replit-code-v1-3b`](https://github.com/replit/ReplitLM/tree/main/
 
 ## Outline
 
-- [Quickstart](#quickstart)
-- [Inference](#inference)
-- [Finetuning](#finetuning)
+In this README, we have described guides and recommended steps to hack with and building on top of our models in different ways outlined below:
+
+- [Training)](#finetuning)
+    - [Training with LLM Foundry]
+
 - [Instruct Tuning](#instruct-tuning)
     - [Instruct Tuning with Huggingface](#instruct-tuning-with-huggingface)
         - [Alpaca-style Datasets](#alpaca-style-datasets)
@@ -26,7 +28,58 @@ May 2, 2023: [`replit-code-v1-3b`](https://github.com/replit/ReplitLM/tree/main/
 - [Things Useful For Training and Finetuning with LLM Foundry](#things-useful-for-training-and-finetuning-with-llm-foundry)
 
 
-## Finetuning (More Pretraining for Model)
+This is being continuously updated to add more ways to use and build on top of our models. Please feel free to contribute by opening PRs to this README!
+
+## Training
+
+### Training with LLM Foundry
+
+We recommend any further training, pre-training and finetuning of the Replit models with MosaicML's [LLM Foundry](https://github.com/mosaicml/llm-foundry). LLM Foundry enables you to incorporate the latest techniques to train with ease. 
+
+Our Replit models are compatible with LLM Foundry and can be trained/tuned in a highly optimzied way with LLM Foundry using state of the art training techniques, architectural components, optimizers and more.
+
+You can use the following steps to further train/tune the Replit models with LLM Foundry on any dataset you put together.
+
+#### (0) Setup your project, install and LLM Foundry
+
+To get started with LLM Foundry, you can follow the [LLM Foundry README](https://github.com/mosaicml/llm-foundry/tree/main) to:
+1. Setup the Prerequisites
+2. Perform the Installation steps as they recommend
+3. (Optional) Run the Quickstart steps out of the box to check everything is working
+
+At a high-level, LLM Foundry is used by defining a configuration yaml and then running  `train/train.py` training script in the LLM Foundry repo with the defined configuration yaml using a command like `composer train/train.py <configuration_yaml_path> <extra_args>`.
+
+
+#### (1) Convert and Save Your Dataset
+
+To train with LLM Foundry, you need to convert your dataset to the [Mosaic StreamingDataset](https://github.com/mosaicml/streaming) format. 
+
+The types of dataset sources supported are JSON datasets and Huggingface Datasets.
+
+The [Data Preparation](https://github.com/mosaicml/llm-foundry/tree/main/scripts/data_prep) documentation in LLM Foundry gives the steps on how to do this.
+
+Note that you can do this conversion locally or on a remote VM depending on the size of your dataset. You can also store out your dataset locally or to a remote cloud object storage location such as S3 and GCS as well. Running the conversion in a remote VM and then saving out to a cloud object store is the best way to do this for large datasets.
+
+- If you want to save out locally, you can set the `out_root` argument in the conversion script, and then just point to this path in the configuration yaml with the `data_local` key as you'll see in the next step.
+- If you want to save ut 
+
+To test the converted dataset and check that its working with the dataloader, you can follow the [Test the Dataloader](https://github.com/mosaicml/llm-foundry/tree/main/scripts/train#test-the-dataloader) section in LLM Foundry docs. 
+
+#### (2) Define a Run Configuration YAML with the Replit Models
+
+To train with LLM Foundry, you need to define a run configuration yaml. This yaml defines the model, training dataset, eval dataset and metric, training parameters and more.
+
+
+### (3) Running Training
+
+After having converted your dataset and defined a run configuration yaml, you can run training with LLM Foundry easily.
+
+Simply follow the [How to Start Training](https://github.com/mosaicml/llm-foundry/tree/main/scripts/train#how-to-start-training) section in the LLM Foundry docs to run training. The section shows you how to run single-node and multi-node training.
+
+### References
+
+The [Composer Docs](https://docs.mosaicml.com/projects/composer/en/latest/) are your best friend for using composer and configuring integrations such as WandB, etc. in your configuration yamls, including how to setup checkpointing, logging, etc.
+
 
 ## Instruct Tuning
 
@@ -37,6 +90,11 @@ You can instruct our replit-code models for your own use case.
 #### Alpaca-style Datasets
 
 You can instruct tune the replit-code-v1-3b model on Alpaca style instruct tuning datasets using the `transformers` library.
+
+Some datasets that are already in Alpaca-style format are:
+- alpaca
+- codealpaca
+
 
 The following repository by the open source contributor [Teknium](https://github.com/teknium1) is a pre-configured trainer set up for this. 
 
@@ -55,6 +113,12 @@ You can also use LLM Foundry to do Instruction Tuning. To do so you need to the 
 
 #### (0) Setup your project, install and LLM Foundry
 
+To get started with LLM Foundry, you can follow the [LLM Foundry README](https://github.com/mosaicml/llm-foundry/tree/main) to:
+1. Setup the Prerequisites
+2. Perform the Installation steps as they recommend
+3. (Optional) Run the Quickstart steps out of the box to check everything is working
+
+At a high-level, LLM Foundry is used by defining a configuration yaml and then running  `train/train.py` training script in the LLM Foundry repo with the defined configuration yaml using a command like `composer train/train.py <configuration_yaml_path> <extra_args>`.
 
 #### (1) Find an instruct tuning dataset
 
@@ -76,8 +140,7 @@ Some datasets like [mosaicml/dolly_hhrlhf](https://huggingface.co/mosaicml/dolly
 
 **Needed Case**
 
-If you're not using these datasets, you will need to write your own preprocessing function and register it, which we outline how to do below.
-
+If you're not using these datasets, you will need to write your own preprocessing function and register it.
 
 For any dataset, you need each example formatted as a dictionary with the following keys:
 
@@ -114,7 +177,7 @@ The TLDR is, you will modify the `train_loader`, and `eval_loader` if applicable
 
 
 
-## Things Useful For Training and Finetuning with LLM Foundry
+## Other Useful Things
 
 - [How many GPUs do I need to train a LLM?](https://github.com/mosaicml/llm-foundry/blob/main/scripts/train/README.md#how-many-gpus-do-i-need-to-train-a-llm)
 - [Optimizing Performance](https://github.com/mosaicml/llm-foundry/blob/main/scripts/train/README.md#how-many-gpus-do-i-need-to-train-a-llm)
