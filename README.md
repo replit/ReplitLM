@@ -1,5 +1,21 @@
 # ReplitLM
-Inference code and configs for the ReplitLM model family.
+Guides, code and configs for the ReplitLM model family.
+
+## Table of Contents
+- [Models](#models)
+- [Releases](#releases)
+- [Using the Replit Models](#using-the-replit-models)
+    - [Replit on Huggingface](#replit-on-huggingface)
+    - [Hosted Demo](#hosted-demo)
+    - [Using the Models with Huggingface Transformers](#using-the-models-with-huggingface-transformers)
+- [Training](#training)
+    - [Training with LLM Foundry](#training-with-llm-foundry)
+- [Instruct Tuning](#instruct-tuning)
+    - [Instruct Tuning - LLM Foundry](#instruct-tuning---llm-foundry)
+    - [Alpaca-style Instruct Tuning with Huggingface](#instruct-tuning-with-huggingface)
+- [FAQs](#things-useful-for-training-and-finetuning-with-llm-foundry)
+
+This is being continuously updated to add more ways to use and build on top of our models. Please feel free to contribute by opening PRs to this README!
 
 ## Models
 | Model | Checkpoint [CC BY-SA 4.0] | Vocabulary [CC BY-SA 4.0] | Code [Apache 2.0] |
@@ -10,18 +26,27 @@ Inference code and configs for the ReplitLM model family.
 ## Releases
 May 2, 2023: [`replit-code-v1-3b`](https://github.com/replit/ReplitLM/tree/main/replit-code-v1-3b)
 
-## Outline
+## Using the Replit Models
 
-In this README, we have described guides and recommended steps to hack with and building on top of our models in different ways outlined below:
 
-- [Training](#training)
-    - [Training with LLM Foundry](#training-with-llm-foundry)
-- [Instruct Tuning](#instruct-tuning)
-    - [Instruct Tuning with Huggingface](#instruct-tuning-with-huggingface)
-    - [Instruct Tuning - LLM Foundry](#instruct-tuning---llm-foundry)
-- [FAQs](#things-useful-for-training-and-finetuning-with-llm-foundry)
+### Hosted Demo
 
-This is being continuously updated to add more ways to use and build on top of our models. Please feel free to contribute by opening PRs to this README!
+We also have a GPU-powered Space for the `replit-code-v1-3b` model where you can use the model directly!
+
+[GPU-powered Hosted Demo](https://huggingface.co/spaces/replit/replit-code-v1-3b-demo)
+
+It's fast!
+
+### Using the Models with Huggingface Transformers
+
+All released Replit models are available on Huggingface under the [Replit organization page](https://huggingface.co/replit) and can be used with the Huggingface Transformers library.
+
+You can use the Replit models with Huggingface Transformers library. The README for each released model has instructions on how to use the model with Huggingface Transformers.
+
+| Model | README |
+| --- | --- |
+| replit-code-v1-3b | [Documentation](https://huggingface.co/replit/replit-code-v1-3b) |
+
 
 ## Training
 
@@ -64,13 +89,13 @@ To test the converted dataset and check that its working with the dataloader, yo
 To train with LLM Foundry, you need to define a run configuration yaml. This yaml defines the model, training dataset, eval dataset and metric, training parameters and more.
 
 
-### (3) Running Training
+#### (3) Running Training
 
 After having converted your dataset and defined a run configuration yaml, you can run training with LLM Foundry easily.
 
 Simply follow the [How to Start Training](https://github.com/mosaicml/llm-foundry/tree/main/scripts/train#how-to-start-training) section in the LLM Foundry docs to run training. The section shows you how to run single-node and multi-node training.
 
-### References
+#### References
 
 The [Composer Docs](https://docs.mosaicml.com/projects/composer/en/latest/) are your best friend for using composer and configuring integrations such as WandB, etc. in your configuration yamls, including how to setup checkpointing, logging, etc.
 
@@ -78,25 +103,6 @@ The [Composer Docs](https://docs.mosaicml.com/projects/composer/en/latest/) are 
 ## Instruct Tuning
 
 You can instruct our replit-code models for your own use case.
-
-### Alpaca-style Instruct Tuning with Huggingface
-
-You can instruct tune the replit-code-v1-3b model on Alpaca style instruct tuning datasets using the `transformers` library.
-
-Some datasets that are already in Alpaca-style format are:
-- alpaca
-- codealpaca
-
-
-The following repository by the open source contributor [Teknium](https://github.com/teknium1) is a pre-configured trainer set up for this. 
-
-https://github.com/teknium1/stanford_alpaca-replit
-
-It is forked from [Stanford's Alpaca project repo](https://github.com/tatsu-lab/stanford_alpaca) and has the required modifications + correctness changes to make the trainer work out of the box with our models. 
-
-The repo contains instructions on how to setup and run the trainer. 
-
-The required Alpaca-style dataset format is described here: https://github.com/teknium1/stanford_alpaca-replit#dataset-format. Any dataset formatted Alpaca-style will work with the trainer. For example, the [Code Alpaca dataset](https://github.com/sahil280114/codealpaca) can be used to instruct tune our model using the training script in Teknium's repo. 
 
 ### Instruct Tuning - LLM Foundry
 
@@ -167,6 +173,24 @@ The [Usage section](https://github.com/mosaicml/llm-foundry/blob/main/scripts/tr
 The TLDR is, you will modify the `train_loader`, and `eval_loader` if applicable, in your training YAML based on what you did in the previous two steps. 
 
 
+### Alpaca-style Instruct Tuning with Huggingface
+
+You can instruct tune the replit-code-v1-3b model on Alpaca style instruct tuning datasets using the `transformers` library.
+
+Some datasets that are already in Alpaca-style format are:
+- alpaca
+- codealpaca
+
+
+The following repository by the open source contributor [Teknium](https://github.com/teknium1) is a pre-configured trainer set up for this. 
+
+https://github.com/teknium1/stanford_alpaca-replit
+
+It is forked from [Stanford's Alpaca project repo](https://github.com/tatsu-lab/stanford_alpaca) and has the required modifications + correctness changes to make the trainer work out of the box with our models. 
+
+The repo contains instructions on how to setup and run the trainer. 
+
+The required Alpaca-style dataset format is described here: https://github.com/teknium1/stanford_alpaca-replit#dataset-format. Any dataset formatted Alpaca-style will work with the trainer. For example, the [Code Alpaca dataset](https://github.com/sahil280114/codealpaca) can be used to instruct tune our model using the training script in Teknium's repo. 
 
 
 ## FAQs
