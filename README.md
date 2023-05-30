@@ -5,7 +5,6 @@ Guides, code and configs for the ReplitLM model family.
 - [Models](#models)
 - [Releases](#releases)
 - [Using the Replit Models](#using-the-replit-models)
-    - [Replit on Huggingface](#replit-on-huggingface)
     - [Hosted Demo](#hosted-demo)
     - [Using the Models with Huggingface Transformers](#using-the-models-with-huggingface-transformers)
 - [Training](#training)
@@ -13,7 +12,7 @@ Guides, code and configs for the ReplitLM model family.
 - [Instruct Tuning](#instruct-tuning)
     - [Instruct Tuning - LLM Foundry](#instruct-tuning---llm-foundry)
     - [Alpaca-style Instruct Tuning with Huggingface](#instruct-tuning-with-huggingface)
-- [FAQs](#things-useful-for-training-and-finetuning-with-llm-foundry)
+- [FAQs](#faqs)
 
 This is being continuously updated to add more ways to use and build on top of our models. Please feel free to contribute by opening PRs to this README!
 
@@ -29,7 +28,7 @@ May 2, 2023: [`replit-code-v1-3b`](https://github.com/replit/ReplitLM/tree/main/
 ## Usage
 
 
-#### Hosted Demo
+### Hosted Demo
 
 We also have a GPU-powered Space for the `replit-code-v1-3b` model where you can use the model directly!
 
@@ -37,7 +36,7 @@ We also have a GPU-powered Space for the `replit-code-v1-3b` model where you can
 
 It's fast!
 
-#### Using with Huggingface Transformers
+### Using with Huggingface Transformers
 
 All released Replit models are available on Huggingface under the [Replit organization page](https://huggingface.co/replit) and can be used with the Huggingface Transformers library.
 
@@ -97,9 +96,10 @@ After having converted your dataset and defined a run configuration yaml, you ca
 
 Simply follow the [How to Start Training](https://github.com/mosaicml/llm-foundry/tree/main/scripts/train#how-to-start-training) section in the LLM Foundry docs to run training. The section shows you how to run single-node and multi-node training.
 
-#### References
+#### Relevant Documentation
 
-The [Composer Docs](https://docs.mosaicml.com/projects/composer/en/latest/) are your best friend for using composer and configuring integrations such as WandB, etc. in your configuration yamls, including how to setup checkpointing, logging, etc.
+- The [Composer Docs](https://docs.mosaicml.com/projects/composer/en/latest/) are your best friend for using composer and configuring integrations such as WandB, etc. in your configuration yamls, including how to setup checkpointing, logging, etc.
+- The [LLM Foundry README](https://github.com/mosaicml/llm-foundry) and the [LLM Foundry Training Documentation](https://github.com/mosaicml/llm-foundry/tree/main/scripts/train) will be useful. As a heads up, the LLM Foundry documentation is scattered around in their repo so you might need to do some searching to find what you need. We've attempted to directly link to the relevant sections above.
 
 
 ## Instruct Tuning
@@ -153,14 +153,12 @@ i.e. each sample is a dictionary with the two keys. This is the format the `fine
 
 **Guide for Formatting Your Dataset**
 
-The [Data Formatting section](https://github.com/mosaicml/llm-foundry/blob/main/scripts/train/README.md#data-formatting) in the original LLM Foundry repo describes how to do this best. 
+The [Data Formatting section](https://github.com/mosaicml/llm-foundry/blob/main/scripts/train/README.md#data-formatting) in the original LLM Foundry repo describes how to do this.
 
-The TLDR paraphrased is, you will need to do the following:
+In the case that you need to create a custom preprocessing function to get your data into the right format, and the steps in the LLM Foundry documentation is confusing you, the TLDR paraphrased is as follows:
 
 1. You create a file let's say `preprocess.py` somewhere in your codebase, e.g. in the same directory as your training script, as long as it can be imported by your training script.
-
 2. You define a fuction `preprocess_function` that takes in one sample from your dataset and returns a dictionary with the keys `prompt` and `response` as described above, according to your logic of how to format the sample into the required format.
-
 3. You will point to the file your create, for example and `preprocess.py` and the function you defined, e.g. `preprocess_function` in the YAML you setup for your training run. 
 
 
@@ -172,7 +170,8 @@ Now you can use your dataset to finetune the Replit model.
 
 The [Usage section](https://github.com/mosaicml/llm-foundry/blob/main/scripts/train/README.md#usage) in the original LLM Foundry repo describes how to use your dataset and finetune the Replit model. 
 
-The TLDR is, you will modify the `train_loader`, and `eval_loader` if applicable, in your training YAML based on what you did in the previous two steps. 
+Basically, if you are using options 1) or 2) in that section, you will modify the `train_loader`, and `eval_loader` if applicable, in your training YAML based on what you did in the previous two steps. 
+If you are using option 3) that is you are using a streaming dataset,you will first convert the dataset into the right format with prompt and response keys, and then you will write it out to a local MDS dataset.
 
 
 ### Alpaca-style Instruct Tuning with Huggingface
