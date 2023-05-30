@@ -1,6 +1,8 @@
 # ReplitLM
 Guides, code and configs for the ReplitLM model family.
 
+
+
 ## Table of Contents
 - [Models](#models)
 - [Releases](#releases)
@@ -16,17 +18,21 @@ Guides, code and configs for the ReplitLM model family.
 
 This is being continuously updated to add more ways to use and build on top of our models. Please feel free to contribute by opening PRs to this README!
 
+
+
 ## Models
 | Model | Checkpoint [CC BY-SA 4.0] | Vocabulary [CC BY-SA 4.0] | Code [Apache 2.0] |
 | --- | --- | --- | --- |
 | replit-code-v1-3b | [Download Link](https://huggingface.co/replit/replit-code-v1-3b/blob/main/pytorch_model.bin) | [Download](https://huggingface.co/replit/replit-code-v1-3b/resolve/main/spiece.model) | [Repo](https://github.com/replit/ReplitLM/tree/main/replit-code-v1-3b) |
 
 
+
 ## Releases
 May 2, 2023: [`replit-code-v1-3b`](https://github.com/replit/ReplitLM/tree/main/replit-code-v1-3b)
 
-## Usage
 
+
+## Usage
 
 ### Hosted Demo
 
@@ -55,13 +61,7 @@ We recommend any further training, pre-training and finetuning of the Replit mod
 
 Our Replit models are compatible with LLM Foundry and can be trained/tuned in a highly optimzied way with LLM Foundry + Composer using state of the art training techniques, architectural components, optimizers, and more. All models, LLM Foundry and the Composer training framework are Pytorch-based. Using these you can train the Replit models on your own datasets.
 
-
-
-
-
 The following steps give you the outline of what needs to be done to train the models with links to the LLM Foundry documentation sections needed for each step:
-
-
 
 #### (0) Setup your project, install and LLM Foundry
 
@@ -72,8 +72,6 @@ To get started with LLM Foundry, you can follow the [LLM Foundry README](https:/
 
 At a high-level, LLM Foundry is used by defining a configuration yaml and then running  `train/train.py` training script in the LLM Foundry repo with the defined configuration yaml using a command like `composer train/train.py <configuration_yaml_path> <extra_args>`.
 The scripts/train/yamls dir contains example YAMLs for both finetuning an pretaining. 
-
-
 
 #### (1) Convert and Save Your Dataset
 
@@ -116,7 +114,6 @@ tokenizer:
 ...
 ```
 
-
 This will load our model with its weights from Huggingface for your config.
 
 #### (3) Running Training
@@ -127,13 +124,16 @@ Simply follow the [How to Start Training](https://github.com/mosaicml/llm-foundr
 
 #### Relevant Documentation
 
-- The [Composer Docs](https://docs.mosaicml.com/projects/composer/en/latest/) are your best friend for using composer and configuring integrations such as WandB, etc. in your configuration yamls, including how to setup checkpointing, logging, etc.
+- The [Composer Docs](https://docs.mosaicml.com/projects/composer/en/latest/) are your best friend for using the Composer training framework and its options, and configuring integrations such as WandB, etc. in your configuration yamls, including how to setup checkpointing, logging, etc.
 - The [LLM Foundry README](https://github.com/mosaicml/llm-foundry) and the [LLM Foundry Training Documentation](https://github.com/mosaicml/llm-foundry/tree/main/scripts/train) will be useful. As a heads up, the LLM Foundry documentation is scattered around in their repo so you might need to do some searching to find what you need. We've attempted to directly link to the relevant sections above.
 
 
 ## Instruct Tuning
 
 You can instruct our replit-code models for your own use case.
+
+
+
 
 ### Instruct Tuning - LLM Foundry
 
@@ -157,19 +157,19 @@ At a high-level, LLM Foundry is used by defining a configuration yaml and then r
 - a local dataset in a JSONL file
 - [a local or remote streaming dataset] i.e. a dataset in the specific MDS format used by Mosaic Streaming available locally or in some cloud store such as a GCS/S3 bucket. You will likely not have this dataset, unless you already have been customizing your training and datasets for use with the Mosaic ecosystem.
 
-#### (2) Format the Dataset with a Preprocessing Function
+#### (2) Format the Dataset with a Custom Preprocessing Function
 
 Depending on the dataset you are using, you may or may not need to format the dataset into the format expected by LLM Foundry.
 
 
-**Not Needed Case**
+**Datasets for which Custom Preprocessing is Not Needed**
 
 Some datasets like [mosaicml/dolly_hhrlhf](https://huggingface.co/mosaicml/dolly_hhrlhf) already come with a preprocessing function defined and registered that you can use. As of the time of publishing the following Huggingface datasets came with a pre-registered preprocessing function: HuggingFaceH4/databricks_dolly_15k, Muennighoff/P3,Muennighoff/flan, bigscience/P3, tatsu-lab/alpaca. 
 
 
-**Needed Case**
+**Datasets for which Custom Preprocessing is Needed**
 
-If you're not using these datasets, you will need to write your own preprocessing function and register it.
+If you're not using any of the above datasets, you will need to write your own preprocessing function and register it.
 
 For any dataset, you need each example formatted as a dictionary with the following keys:
 
@@ -200,27 +200,22 @@ Now you can use your dataset to finetune the Replit model.
 The [Usage section](https://github.com/mosaicml/llm-foundry/blob/main/scripts/train/README.md#usage) in the original LLM Foundry repo describes how to use your dataset and finetune the Replit model. 
 
 Basically, if you are using options 1) or 2) in that section, you will modify the `train_loader`, and `eval_loader` if applicable, in your training YAML based on what you did in the previous two steps. 
-If you are using option 3) that is you are using a streaming dataset,you will first convert the dataset into the right format with prompt and response keys, and then you will write it out to a local MDS dataset.
+If you are using option 3) that is you are using a streaming dataset,you will first convert the dataset into the right format with prompt and response keys, and then you will write it out to a local MDS dataset. After this you can modify your YAML to point to this.
 
 
 ### Alpaca-style Instruct Tuning with Huggingface
 
-You can instruct tune the replit-code-v1-3b model on Alpaca style instruct tuning datasets using the `transformers` library.
+You can instruct tune the replit-code-v1-3b model on Alpaca style instruct tuning datasets using the `transformers` library and the Stanford Alpaca/respective repo with some modifications.
 
 Some datasets that are already in Alpaca-style format are:
-- alpaca
-- codealpaca
+- [Stanford Alpaca](https://github.com/tatsu-lab/stanford_alpaca)
+- [Code Alpaca](https://github.com/sahil280114/codealpaca)
 
 
-The following repository by the open source contributor [Teknium](https://github.com/teknium1) is a pre-configured trainer set up for this. 
+**Community Contributions You Can Use**
+Open source contributor [Teknium](https://github.com/teknium1) has forked the original Alpaca repo to this [stanford_alpaca=replit](https://github.com/teknium1/stanford_alpaca-replit) that is pre-configured to run with our models. 
 
-https://github.com/teknium1/stanford_alpaca-replit
-
-It is forked from [Stanford's Alpaca project repo](https://github.com/tatsu-lab/stanford_alpaca) and has the required modifications + correctness changes to make the trainer work out of the box with our models. 
-
-The repo contains instructions on how to setup and run the trainer. 
-
-The required Alpaca-style dataset format is described here: https://github.com/teknium1/stanford_alpaca-replit#dataset-format. Any dataset formatted Alpaca-style will work with the trainer. For example, the [Code Alpaca dataset](https://github.com/sahil280114/codealpaca) can be used to instruct tune our model using the training script in Teknium's repo. 
+The repo contains instructions on how to setup and run the trainer. The required Alpaca-style dataset format is described here: https://github.com/teknium1/stanford_alpaca-replit#dataset-format. Any dataset formatted Alpaca-style will work with the trainer. For example, the [Code Alpaca dataset](https://github.com/sahil280114/codealpaca) can be used to instruct tune our model using the training script in Teknium's repo. 
 
 
 ## FAQs
