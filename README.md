@@ -70,7 +70,7 @@ To get started with LLM Foundry, you can follow the [LLM Foundry README](https:/
 3. (Optional) Run the Quickstart steps out of the box to check everything is working
 
 At a high-level, LLM Foundry is used by defining a configuration yaml and then running  `train/train.py` training script in the LLM Foundry repo with the defined configuration yaml using a command like `composer train/train.py <configuration_yaml_path> <extra_args>`.
-The scripts/train/yamls dir contains example YAMLs for both finetuning an pretaining. 
+The [scripts/train/yamls](https://github.com/mosaicml/llm-foundry/tree/main/scripts/train/yamls) dir contains example YAMLs for both finetuning an pretaining. 
 
 #### (1) Convert and Save Your Dataset
 
@@ -80,10 +80,12 @@ The types of dataset sources supported are JSON datasets and Huggingface Dataset
 
 The [Data Preparation](https://github.com/mosaicml/llm-foundry/tree/main/scripts/data_prep) documentation in LLM Foundry gives the steps on how to do this.
 
-Note that you can do this conversion locally or on a remote VM depending on the size of your dataset. You can also store out your dataset locally or to a remote cloud object storage location such as S3 and GCS as well.
+:warning: **Important** :warning:
 
-- If you want to save out locally, you can set the `out_root` argument in the conversion script, and then just point to this path in the configuration yaml with the `data_local` key as you'll see in the next step.
-- If you want to save out to a remote cloud store such as GCS or S3, just set the `out_root` argument to a path that starts with `gs://` or `s3://` and then just point to this path in the configuration yaml with the `data_remote` key as you'll see in the next step.
+When running the `convert_dataset_hf.py` or `convert_dataset_json.py` in the steps above, you will have to specify that you are using the Replit tokenizer by passing in the argument ` --tokenizer replit/replit-code-v1-3b`.
+A key thing needed here, due to a hardcoded logic in `composer` is that you will have to edit the `convert_dataset_hf.py` by passing the `trust_remote_code=True` kwarg to the `AutoTokenizer.from_pretrained` call when the tokenizer is loaded on Line 315.
+
+**Testing Your Converted Dataset**
 
 To test the converted dataset and check that its working with the dataloader, you can follow the [Test the Dataloader](https://github.com/mosaicml/llm-foundry/tree/main/scripts/train#test-the-dataloader) section in LLM Foundry docs. 
 
