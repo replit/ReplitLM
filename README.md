@@ -14,19 +14,12 @@ May 2, 2023: [`replit-code-v1-3b`](https://github.com/replit/ReplitLM/tree/main/
 
 In this README, we have described guides and recommended steps to hack with and building on top of our models in different ways outlined below:
 
-- [Training)](#finetuning)
-    - [Training with LLM Foundry]
-
+- [Training](#training)
+    - [Training with LLM Foundry](#training-with-llm-foundry)
 - [Instruct Tuning](#instruct-tuning)
     - [Instruct Tuning with Huggingface](#instruct-tuning-with-huggingface)
-        - [Alpaca-style Datasets](#alpaca-style-datasets)
     - [Instruct Tuning - LLM Foundry](#instruct-tuning---llm-foundry)
-        - [(0) Setup your project, install and LLM Foundry](#0-setup-your-project-install-and-llm-foundry)
-        - [(1) Find an instruct tuning dataset](#1-find-an-instruct-tuning-dataset)
-        - [(2) Format the Dataset](#2-format-the-dataset)
-        - [(3) Using your Dataset and Finetuning](#3-using-your-dataset-and-finetuning-the-replit-model)
-- [Things Useful For Training and Finetuning with LLM Foundry](#things-useful-for-training-and-finetuning-with-llm-foundry)
-
+- [FAQs](#things-useful-for-training-and-finetuning-with-llm-foundry)
 
 This is being continuously updated to add more ways to use and build on top of our models. Please feel free to contribute by opening PRs to this README!
 
@@ -34,11 +27,12 @@ This is being continuously updated to add more ways to use and build on top of o
 
 ### Training with LLM Foundry
 
-We recommend any further training, pre-training and finetuning of the Replit models with MosaicML's [LLM Foundry](https://github.com/mosaicml/llm-foundry). LLM Foundry enables you to incorporate the latest techniques to train with ease. 
+We recommend any further training, pre-training and finetuning of the Replit models with MosaicML's [LLM Foundry](https://github.com/mosaicml/llm-foundry) and [Composer](https://github.com/mosaicml/composer).
 
-Our Replit models are compatible with LLM Foundry and can be trained/tuned in a highly optimzied way with LLM Foundry using state of the art training techniques, architectural components, optimizers and more.
+Our Replit models are compatible with LLM Foundry and can be trained/tuned in a highly optimzied way with LLM Foundry + Composer using state of the art training techniques, architectural components, optimizers, and more. All models, LLM Foundry and the Composer training framework are Pytorch-based.
 
-You can use the following steps to further train/tune the Replit models with LLM Foundry on any dataset you put together.
+Using these you can train the Replit models on your own datasets.
+
 
 #### (0) Setup your project, install and LLM Foundry
 
@@ -85,9 +79,7 @@ The [Composer Docs](https://docs.mosaicml.com/projects/composer/en/latest/) are 
 
 You can instruct our replit-code models for your own use case.
 
-### Instruct Tuning with Huggingface
-
-#### Alpaca-style Datasets
+### Alpaca-style Instruct Tuning with Huggingface
 
 You can instruct tune the replit-code-v1-3b model on Alpaca style instruct tuning datasets using the `transformers` library.
 
@@ -177,7 +169,7 @@ The TLDR is, you will modify the `train_loader`, and `eval_loader` if applicable
 
 
 
-## Other Useful Things
+## FAQs
 
 - [How many GPUs do I need to train a LLM?](https://github.com/mosaicml/llm-foundry/blob/main/scripts/train/README.md#how-many-gpus-do-i-need-to-train-a-llm)
 - [Optimizing Performance](https://github.com/mosaicml/llm-foundry/blob/main/scripts/train/README.md#how-many-gpus-do-i-need-to-train-a-llm)
