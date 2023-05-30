@@ -1,22 +1,21 @@
 # ReplitLM
 Guides, code and configs for the ReplitLM model family.
 
-
+This is being continuously updated to add more ways to use and build on top of our models. 
+Please feel free to contribute by opening PRs to this README!
 
 ## Table of Contents
 - [Models](#models)
 - [Releases](#releases)
-- [Using the Replit Models](#using-the-replit-models)
+- [Usage](#using-the-replit-models)
     - [Hosted Demo](#hosted-demo)
-    - [Using the Models with Huggingface Transformers](#using-the-models-with-huggingface-transformers)
+    - [Using with Huggingface Transformers](#using-with-huggingface-transformers)
 - [Training](#training)
     - [Training with LLM Foundry](#training-with-llm-foundry)
 - [Instruct Tuning](#instruct-tuning)
     - [Instruct Tuning - LLM Foundry](#instruct-tuning---llm-foundry)
     - [Alpaca-style Instruct Tuning with Huggingface](#instruct-tuning-with-huggingface)
 - [FAQs](#faqs)
-
-This is being continuously updated to add more ways to use and build on top of our models. Please feel free to contribute by opening PRs to this README!
 
 
 
@@ -140,7 +139,7 @@ You can instruct our replit-code models for your own use case.
 You can also use LLM Foundry to do Instruction Tuning. To do so you need to the following steps at a high-level, with the specific details and steps you need to follow linked to as needed:
 
 
-#### (0) Setup your project, install and LLM Foundry
+#### (0) Setup LLM Foundry
 
 To get started with LLM Foundry, you can follow the [LLM Foundry README](https://github.com/mosaicml/llm-foundry/tree/main) to:
 1. Setup the Prerequisites
@@ -153,14 +152,13 @@ At a high-level, LLM Foundry is used by defining a configuration yaml and then r
 
  Can be any of the following:
 
--  the HuggingFace Hub, i.e. some instruct tuning dataset on the huggingface hub
+- some instruct tuning dataset on the Huggingface Hub
 - a local dataset in a JSONL file
-- [a local or remote streaming dataset] i.e. a dataset in the specific MDS format used by Mosaic Streaming available locally or in some cloud store such as a GCS/S3 bucket. You will likely not have this dataset, unless you already have been customizing your training and datasets for use with the Mosaic ecosystem.
+- a local or remote streaming dataset, i.e. a dataset in the specific MDS format used by Mosaic Streaming available locally or in some cloud store such as a GCS/S3 bucket. You will likely not have this dataset, unless you already have been customizing your training and datasets for use with the Mosaic ecosystem.
 
 #### (2) Format the Dataset with a Custom Preprocessing Function
 
 Depending on the dataset you are using, you may or may not need to format the dataset into the format expected by LLM Foundry.
-
 
 **Datasets for which Custom Preprocessing is Not Needed**
 
@@ -213,9 +211,10 @@ Some datasets that are already in Alpaca-style format are:
 
 
 **Community Contributions You Can Use**
+
 Open source contributor [Teknium](https://github.com/teknium1) has forked the original Alpaca repo to this [stanford_alpaca=replit](https://github.com/teknium1/stanford_alpaca-replit) that is pre-configured to run with our models. 
 
-The repo contains instructions on how to setup and run the trainer. The required Alpaca-style dataset format is described here: https://github.com/teknium1/stanford_alpaca-replit#dataset-format. Any dataset formatted Alpaca-style will work with the trainer. For example, the [Code Alpaca dataset](https://github.com/sahil280114/codealpaca) can be used to instruct tune our model using the training script in Teknium's repo. 
+The repo contains instructions on how to setup and run the trainer. The required Alpaca-style dataset format is described [here](https://github.com/teknium1/stanford_alpaca-replit#dataset-format). Any dataset formatted Alpaca-style will work with the trainer. For example, the [Code Alpaca dataset](https://github.com/sahil280114/codealpaca) can be used to instruct tune our model using the training script in Teknium's repo. 
 
 
 ## FAQs
