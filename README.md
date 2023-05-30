@@ -203,7 +203,7 @@ Basically, if you are using options 1) or 2) in that section, you will modify th
 If you are using option 3) that is you are using a streaming dataset,you will first convert the dataset into the right format with prompt and response keys, and then you will write it out to a local MDS dataset. After this you can modify your YAML to point to this.
 
 
-### Alpaca-style Instruct Tuning with Huggingface
+### Alpaca-style Instruct Tuning with Huggingface Transformers
 
 You can instruct tune the replit-code-v1-3b model on Alpaca style instruct tuning datasets using the `transformers` library and the Stanford Alpaca/respective repo with some modifications.
 
