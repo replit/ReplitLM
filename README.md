@@ -53,21 +53,26 @@ You can use the Replit models with Huggingface Transformers library. The README 
 
 We recommend any further training, pre-training and finetuning of the Replit models with MosaicML's [LLM Foundry](https://github.com/mosaicml/llm-foundry) and [Composer](https://github.com/mosaicml/composer).
 
-Our Replit models are compatible with LLM Foundry and can be trained/tuned in a highly optimzied way with LLM Foundry + Composer using state of the art training techniques, architectural components, optimizers, and more. All models, LLM Foundry and the Composer training framework are Pytorch-based.
+Our Replit models are compatible with LLM Foundry and can be trained/tuned in a highly optimzied way with LLM Foundry + Composer using state of the art training techniques, architectural components, optimizers, and more. All models, LLM Foundry and the Composer training framework are Pytorch-based. Using these you can train the Replit models on your own datasets.
 
-Using these you can train the Replit models on your own datasets.
+
+
+
 
 The following steps give you the outline of what needs to be done to train the models with links to the LLM Foundry documentation sections needed for each step:
+
 
 
 #### (0) Setup your project, install and LLM Foundry
 
 To get started with LLM Foundry, you can follow the [LLM Foundry README](https://github.com/mosaicml/llm-foundry/tree/main) to:
-1. Setup the Prerequisites
+1. Setup the Prerequisites, the Docker file is recommended to avoid environment issues
 2. Perform the Installation steps as they recommend
 3. (Optional) Run the Quickstart steps out of the box to check everything is working
 
 At a high-level, LLM Foundry is used by defining a configuration yaml and then running  `train/train.py` training script in the LLM Foundry repo with the defined configuration yaml using a command like `composer train/train.py <configuration_yaml_path> <extra_args>`.
+The scripts/train/yamls dir contains example YAMLs for both finetuning an pretaining. 
+
 
 
 #### (1) Convert and Save Your Dataset
@@ -89,6 +94,30 @@ To test the converted dataset and check that its working with the dataloader, yo
 
 To train with LLM Foundry, you need to define a run configuration yaml. This yaml defines the model, training dataset, eval dataset and metric, training parameters and more.
 
+**Using the Replit Models**
+
+For any config YAML you define to train/tune with LLM Foundry, you can plug in and use the Replit model by replacing  the model and tokenizer keys in your YAML as follows:
+```
+...
+model:
+  name: hf_causal_lm
+  pretrained: true
+  pretrained_model_name_or_path: replit/replit-code-v1-3b
+  config_overrides:
+    attn_config:
+      attn_impl: triton
+      attn_uses_sequence_id: false
+
+tokenizer:
+  name: replit/replit-code-v1-3b
+  kwargs:
+    model_max_length: ${max_seq_len}
+    trust_remote_code: true
+...
+```
+
+
+This will load our model with its weights from Huggingface for your config.
 
 #### (3) Running Training
 
