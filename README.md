@@ -45,7 +45,8 @@ It's fast!
 
 All released Replit models are available on Huggingface under the [Replit organization page](https://huggingface.co/replit) and can be used with the Huggingface Transformers library.
 
-You can use the Replit models with Huggingface Transformers library. The README for each released model has instructions on how to use the model with Huggingface Transformers.
+You can use the Replit models with Huggingface Transformers library. The README for each released model has instructions on how to use the model with Huggingface Transformers. 
+Make sure you set the `clean_up_tokenization_spaces=False` when decoding with the tokenizer as well use the recommended post processing given in the README. 
 
 | Model | README |
 | --- | --- |
