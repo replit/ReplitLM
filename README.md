@@ -117,11 +117,20 @@ tokenizer:
 
 This will load our model with its weights from Huggingface for your config.
 
-#### (3) Running Training
+#### (3) Running Training with LLM Foundry and Composer
 
-After having converted your dataset and defined a run configuration yaml, you can run training with LLM Foundry easily.
 
-Simply follow the [How to Start Training](https://github.com/mosaicml/llm-foundry/tree/main/scripts/train#how-to-start-training) section in the LLM Foundry docs to run training. The section shows you how to run single-node and multi-node training.
+After having converted your dataset and defined a run configuration yaml, you can run training with LLM Foundry.
+
+Follow the [How to Start Training](https://github.com/mosaicml/llm-foundry/tree/main/scripts/train#how-to-start-training) section in the LLM Foundry docs to run training. The section shows you how to run single-node and multi-node training.
+Effectively, you will run the `scripts/train/train.py` training script in the LLM Foundry repo with the defined configuration yaml using a command like `composer train/train.py <configuration_yaml_path> <extra_args>`.
+
+:warning: **Important** :warning:
+
+There is some hardcoded logic in Composer that we need to circumvent right now to ensure we can save out checkpoints. 
+In the `scripts/train/train.py` training script, add the line `model.tokenizer = None` just after the model is initialized and the before the train dataloader is set up, i.e. Line 147. 
+This is effectively ensures that we don't save out the tokenizer with the checkpoint state. This is needed because composer currently cannot handle saving checkpoints with tokenizers that have *.py files. 
+
 
 #### Relevant Documentation
 
