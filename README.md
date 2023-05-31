@@ -62,8 +62,9 @@ Our Replit models are compatible with LLM Foundry and can be trained/tuned in a 
 
 The following steps give you the outline of what needs to be done to train the models with links to the LLM Foundry documentation sections needed for each step:
 
-#### (0) Setup your project, install and LLM Foundry
+#### (0) Install LLM Foundry and Requirements
 
+**Install LLM Foundry**
 To get started with LLM Foundry, you can follow the [LLM Foundry README](https://github.com/mosaicml/llm-foundry/tree/main) to:
 1. Setup the Prerequisites, the Docker file is recommended to avoid environment issues
 2. Perform the Installation steps as they recommend
@@ -71,6 +72,9 @@ To get started with LLM Foundry, you can follow the [LLM Foundry README](https:/
 
 At a high-level, LLM Foundry is used by defining a configuration yaml and then running  `train/train.py` training script in the LLM Foundry repo with the defined configuration yaml using a command like `composer train/train.py <configuration_yaml_path> <extra_args>`.
 The [scripts/train/yamls](https://github.com/mosaicml/llm-foundry/tree/main/scripts/train/yamls) dir contains example YAMLs for both finetuning an pretaining. 
+
+**Install Other Requirements for the Replit Models**
+You will then have to install a few other dependencies specified in the `requirements.txt`.
 
 #### (1) Convert and Save Your Dataset
 
@@ -150,14 +154,19 @@ You can instruct our replit-code models for your own use case.
 You can also use LLM Foundry to do Instruction Tuning. To do so you need to the following steps at a high-level, with the specific details and steps you need to follow linked to as needed:
 
 
-#### (0) Setup LLM Foundry
+#### (0) Install LLM Foundry and Requirements
 
+**Install LLM Foundry**
 To get started with LLM Foundry, you can follow the [LLM Foundry README](https://github.com/mosaicml/llm-foundry/tree/main) to:
-1. Setup the Prerequisites
+1. Setup the Prerequisites, the Docker file is recommended to avoid environment issues
 2. Perform the Installation steps as they recommend
 3. (Optional) Run the Quickstart steps out of the box to check everything is working
 
 At a high-level, LLM Foundry is used by defining a configuration yaml and then running  `train/train.py` training script in the LLM Foundry repo with the defined configuration yaml using a command like `composer train/train.py <configuration_yaml_path> <extra_args>`.
+The [scripts/train/yamls](https://github.com/mosaicml/llm-foundry/tree/main/scripts/train/yamls) dir contains example YAMLs for both finetuning an pretaining. 
+
+**Install Other Requirements for the Replit Models**
+You will then have to install a few other dependencies specified in the `requirements.txt`.
 
 #### (1) Find an instruct tuning dataset
 

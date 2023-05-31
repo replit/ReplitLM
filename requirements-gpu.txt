@@ -1,6 +1,0 @@
-einops
-sentencepiece
-torch
-transformers
-flash-attn==0.2.8
-triton==2.0.0.dev20221202
