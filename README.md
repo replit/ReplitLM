@@ -7,14 +7,14 @@ Please feel free to contribute by opening PRs to this README!
 ## Table of Contents
 - [Models](#models)
 - [Releases](#releases)
-- [Usage](#using-the-replit-models)
+- [Usage](#usage)
     - [Hosted Demo](#hosted-demo)
     - [Using with Huggingface Transformers](#using-with-huggingface-transformers)
 - [Training](#training)
     - [Training with LLM Foundry](#training-with-llm-foundry)
 - [Instruct Tuning](#instruct-tuning)
-    - [Instruct Tuning - LLM Foundry](#instruct-tuning---llm-foundry)
-    - [Alpaca-style Instruct Tuning with Huggingface](#instruct-tuning-with-huggingface)
+    - [Instruct Tuning with LLM Foundry](#instruct-tuning-with-llm-foundry)
+    - [Alpaca-style Instruct Tuning with Huggingface Transformers](#alpaca-style-instruct-tuning-with-huggingface-transformers)
 - [FAQs](#faqs)
 
 
@@ -150,7 +150,7 @@ You can instruct our replit-code models for your own use case.
 
 
 
-### Instruct Tuning - LLM Foundry
+### Instruct Tuning with LLM Foundry
 
 You can also use LLM Foundry to do Instruction Tuning. To do so you need to the following steps at a high-level, with the specific details and steps you need to follow linked to as needed:
 
