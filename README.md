@@ -2,7 +2,7 @@
 Guides, code and configs for the ReplitLM model family.
 
 _This is being continuously updated to add more ways to use and build on top of our models. 
-Please feel free to contribute by opening PRs to this README!_
+Please feel free to contribute by opening PRs to this repo and README!
 
 ## Table of Contents
 - [Models](#models)
@@ -239,7 +239,10 @@ The repo contains instructions on how to setup and run the trainer. The required
 
 
 ## FAQs
-
+- What dataset was this trained on?
+    - [Stack Dedup](https://huggingface.co/datasets/bigcode/the-stack-deduplication)
+- What languages was the model trained on?
+    - The training mixture includes 20 different languages, listed here in descending order of number of tokens: Markdown, Java, JavaScript, Python, TypeScript, PHP, SQL, JSX, reStructuredText, Rust, C, CSS, Go, C++, HTML, Vue, Ruby, Jupyter Notebook, R, Shell
 - [How many GPUs do I need to train a LLM?](https://github.com/mosaicml/llm-foundry/blob/main/scripts/train/README.md#how-many-gpus-do-i-need-to-train-a-llm)
 - [Optimizing Performance](https://github.com/mosaicml/llm-foundry/blob/main/scripts/train/README.md#how-many-gpus-do-i-need-to-train-a-llm)
 
