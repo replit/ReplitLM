@@ -66,6 +66,7 @@ The following steps give you the outline of what needs to be done to train the m
 #### (0) Install LLM Foundry and Requirements
 
 **Install LLM Foundry**
+
 To get started with LLM Foundry, you can follow the [LLM Foundry README](https://github.com/mosaicml/llm-foundry/tree/main) to:
 1. Setup the Prerequisites, the Docker file is recommended to avoid environment issues
 2. Perform the Installation steps as they recommend
@@ -75,6 +76,7 @@ At a high-level, LLM Foundry is used by defining a configuration yaml and then r
 The [scripts/train/yamls](https://github.com/mosaicml/llm-foundry/tree/main/scripts/train/yamls) dir contains example YAMLs for both finetuning and pretaining. 
 
 **Install Other Requirements for the Replit Models**
+
 You will then have to install a few other dependencies specified in the `requirements.txt`.
 
 #### (1) Convert and Save Your Dataset
