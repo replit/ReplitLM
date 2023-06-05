@@ -9,9 +9,9 @@ _This is being continuously updated to add more ways to use and build on top of 
 - [Usage](#usage)
     - [Hosted Demo](#hosted-demo)
     - [Using with Hugging Face Transformers](#using-with-hugging-face-transformers)
-- [Training](#training)
+- [Training and Fine\-tuning](#training-and-fine-tuning)
     - [Training with LLM Foundry](#training-with-llm-foundry)
-- [Instruct Tuning](#instruct-tuning)
+- [Instruction Tuning](#instruction-tuning)
     - [Alpaca-style Instruct Tuning with Hugging Face Transformers](#alpaca-style-instruct-tuning-with-hugging-face-transformers)
     - [Instruct Tuning with LLM Foundry](#instruct-tuning-with-llm-foundry)
 - [FAQs](#faqs)
@@ -50,7 +50,7 @@ Make sure you set the `clean_up_tokenization_spaces=False` when decoding with th
 | replit-code-v1-3b | [Documentation](https://huggingface.co/replit/replit-code-v1-3b) |
 
 
-## Training
+## Training and Fine-tuning
 
 ### Training with LLM Foundry
 
@@ -141,7 +141,7 @@ This effectively ensures that we don't save out the tokenizer with the checkpoin
 - The [LLM Foundry README](https://github.com/mosaicml/llm-foundry) and the [LLM Foundry Training Documentation](https://github.com/mosaicml/llm-foundry/tree/main/scripts/train) are great starting points. As a heads up, the LLM Foundry documentation is spread across several locations in the repo, so we did our best to directly link to the relevant sections above.
 
 
-## Instruct Tuning
+## Instruction Tuning
 
 You can instruct-tune our ReplitLM models for your own use case. For most instruct-tuning use cases, we recommend starting from the Hugging Face examples below. Otherwise, we also provide a detailed guide to do Instruction Tuning with LLM Foundry.
 
