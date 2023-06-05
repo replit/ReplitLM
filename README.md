@@ -59,7 +59,7 @@ Make sure you set the `clean_up_tokenization_spaces=False` when decoding with th
 
 We recommend any further training, pre-training and finetuning of the Replit models with MosaicML's [LLM Foundry](https://github.com/mosaicml/llm-foundry) and [Composer](https://github.com/mosaicml/composer).
 
-Our Replit models are compatible with LLM Foundry and can be trained/tuned in a highly optimzied way with LLM Foundry + Composer using state of the art training techniques, architectural components, optimizers, and more. All models, LLM Foundry and the Composer training framework are Pytorch-based. Using these you can train the Replit models on your own datasets.
+Our Replit models are compatible with LLM Foundry and can be trained/tuned in a highly optimized way with LLM Foundry + Composer using state of the art training techniques, architectural components, optimizers, and more. All models, LLM Foundry and the Composer training framework are Pytorch-based. Using these you can train the Replit models on your own datasets.
 
 The following steps give you the outline of what needs to be done to train the models with links to the LLM Foundry documentation sections needed for each step:
 
@@ -72,7 +72,7 @@ To get started with LLM Foundry, you can follow the [LLM Foundry README](https:/
 3. (Optional) Run the Quickstart steps out of the box to check everything is working
 
 At a high-level, LLM Foundry is used by defining a configuration yaml and then running  `train/train.py` training script in the LLM Foundry repo with the defined configuration yaml using a command like `composer train/train.py <configuration_yaml_path> <extra_args>`.
-The [scripts/train/yamls](https://github.com/mosaicml/llm-foundry/tree/main/scripts/train/yamls) dir contains example YAMLs for both finetuning an pretaining. 
+The [scripts/train/yamls](https://github.com/mosaicml/llm-foundry/tree/main/scripts/train/yamls) dir contains example YAMLs for both finetuning and pretaining. 
 
 **Install Other Requirements for the Replit Models**
 You will then have to install a few other dependencies specified in the `requirements.txt`.
@@ -124,7 +124,6 @@ This will load our model with its weights from Huggingface for your config.
 
 #### (3) Running Training with LLM Foundry and Composer
 
-
 After having converted your dataset and defined a run configuration yaml, you can run training with LLM Foundry.
 
 Follow the [How to Start Training](https://github.com/mosaicml/llm-foundry/tree/main/scripts/train#how-to-start-training) section in the LLM Foundry docs to run training. The section shows you how to run single-node and multi-node training.
@@ -134,7 +133,7 @@ Effectively, you will run the `scripts/train/train.py` training script in the LL
 
 There is some hardcoded logic in Composer that we need to circumvent right now to ensure we can save out checkpoints. 
 In the `scripts/train/train.py` training script, add the line `model.tokenizer = None` just after the model is initialized and the before the train dataloader is set up, i.e. Line 147. 
-This is effectively ensures that we don't save out the tokenizer with the checkpoint state. This is needed because composer currently cannot handle saving checkpoints with tokenizers that have *.py files. 
+This effectively ensures that we don't save out the tokenizer with the checkpoint state. This is needed because composer currently cannot handle saving checkpoints with tokenizers that have *.py files. 
 
 
 #### Relevant Documentation
@@ -146,7 +145,6 @@ This is effectively ensures that we don't save out the tokenizer with the checkp
 ## Instruct Tuning
 
 You can instruct our replit-code models for your own use case.
-
 
 
 
