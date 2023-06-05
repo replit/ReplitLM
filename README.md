@@ -1,7 +1,7 @@
 # ReplitLM
 Guides, code and configs for the ReplitLM model family.
 
-_This is being continuously updated to add more ways to use and build on top of our models. 
+_This is being continuously updated to add more ways to use and build on top of our models._
 Please feel free to contribute by opening PRs to this repo and README!
 
 ## Table of Contents
