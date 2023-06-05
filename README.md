@@ -234,7 +234,7 @@ If you are using option 3) (i.e., streaming dataset) you will first convert the 
 
 ## FAQs
 - What dataset was this trained on?
-    - [Stack Dedup](https://huggingface.co/datasets/bigcode/the-stack-deduplication)
+    - [Stack Dedup](https://huggingface.co/datasets/bigcode/the-stack-dedup)
 - What languages was the model trained on?
     - The training mixture includes 20 different languages, listed here in descending order of number of tokens: Markdown, Java, JavaScript, Python, TypeScript, PHP, SQL, JSX, reStructuredText, Rust, C, CSS, Go, C++, HTML, Vue, Ruby, Jupyter Notebook, R, Shell
 - [How many GPUs do I need to train a LLM?](https://github.com/mosaicml/llm-foundry/blob/main/scripts/train/README.md#how-many-gpus-do-i-need-to-train-a-llm)
