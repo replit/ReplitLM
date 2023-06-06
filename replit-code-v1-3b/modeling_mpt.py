@@ -23,6 +23,7 @@ Tokenizer = Union[PreTrainedTokenizer, PreTrainedTokenizerFast]
 class MPTPreTrainedModel(PreTrainedModel):
     config_class = MPTConfig
     base_model_prefix = 'model'
+    _no_split_modules=["MPTBlock"]
 
 class MPTModel(MPTPreTrainedModel):
 
