@@ -169,6 +169,53 @@ print(generated_code)
 
 Experiment with different decoding methods and parameters to get the best results for your use case.
 
+
+### Loading with 8-bit and 4-bit quantization
+
+#### Loading in 8-bit
+You can also load the model in 8-bit with the `load_in_8bit=True` kwarg that uses `bitsandbytes` under the hood.
+
+First you need to  install the following additional dependanices: 
+``
+accelerate
+bitsandbytes
+``
+
+Then you can load the model in 8bit as follows:
+
+```
+model = AutoModelForCausalLM.from_pretrained("replit/replit-code-v1-3b", 
+                                             trust_remote_code=True, 
+                                             device_map="auto",
+                                             load_in_8bit=True)
+```
+The additional kwargs that make this possible are `device_map='auto'` and `load_in_8bit=True`. 
+
+#### Loading in 4-bit
+
+For loading in 4-bit, at the time of writing, support for `load_in_4bit` has not been merged into the latest releases for 
+`transformers` and `accelerate`. However you can use it if you install the dependancies from the `main` branches of the published repos:
+
+```bash
+pip install git+https://github.com/huggingface/accelerate.git
+pip install git+https://github.com/huggingface/transformers.git
+```
+
+You can then load the model in 4-bit with:
+
+```
+model = AutoModelForCausalLM.from_pretrained("replit/replit-code-v1-3b", 
+                                             trust_remote_code=True, 
+                                             device_map="auto",
+                                             load_in_4bit=True)
+```
+
+#### References
+- [Hugging Face's Quantization Doc](https://huggingface.co/docs/transformers/main/main_classes/quantization)
+- [Original Blogpost introducing 8-bit](https://huggingface.co/blog/hf-bitsandbytes-integration)
+- [New Blogpost introducing 4-bit](https://huggingface.co/blog/4bit-transformers-bitsandbytes)
+
+
 ### Post Processing
 
 Note that as with all code generation models, post-processing of the generated code is important. In particular, the following post-processing steps are recommended:
