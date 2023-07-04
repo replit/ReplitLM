@@ -1,5 +1,6 @@
 {
   "_from_model_config": true,
   "transformers_version": "4.28.1",
-  "use_cache": false
+  "use_cache": false,
+  "eos_token_id": 1
 }
