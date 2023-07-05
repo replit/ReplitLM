@@ -71,7 +71,3 @@ bash scripts/multiple_eval.sh
 You'll need to specify the `LANGUAGES` variable in the script to match the languages you generated for in the previous step.
 
 Note that the harness did not support execution for some languages in the container at the time of this commit. 
-
-
-
-
