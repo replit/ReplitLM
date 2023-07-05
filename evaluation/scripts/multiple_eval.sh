@@ -21,7 +21,7 @@ LANGUAGES=(
 
 for lang in "${LANGUAGES[@]}"; do
     docker_command=$(cat <<EOM
-sudo docker run -v "$(pwd)/generations_fp16_bs1/generations_$lang.json:/app/generations_$lang.json:ro" -it evaluation-harness-multiple python3 main.py \
+sudo docker run -v "$(pwd)/generations_$lang.json:/app/generations_$lang.json:ro" -it evaluation-harness-multiple python3 main.py \
 --model replit/replit-code-v1-3b \
 --tasks multiple-"$lang" \
 --load_generations_path "/app/generations_$lang.json" \
