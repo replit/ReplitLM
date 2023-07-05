@@ -2,18 +2,16 @@
 
 LANGUAGES=(
     "py"
+    "sh"
     "cpp"
-    "d"
+    "go"
     "java"
     "js"
-    "jl"
-    "lua"
     "php"
     "r"
-    "rkt"
     "rb"
     "rs"
-    "swift"
+    "ts"
 )
 
 # some languages at the time of commit weren't supported by harness for evaluation
