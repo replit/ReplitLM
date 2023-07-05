@@ -5,3 +5,6 @@
 *.bin
 *.pt
 *.model
+
+# VS Code
+.vscode
