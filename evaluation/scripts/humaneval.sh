@@ -1,4 +1,4 @@
-cmd="accelerate launch main.py \
+cmd="accelerate launch eval.py \
   --model replit/replit-code-v1-3b \
   --tasks humaneval \
   --temperature 0.2 \

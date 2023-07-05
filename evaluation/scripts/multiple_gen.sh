@@ -24,7 +24,7 @@ LANGUAGES=(
 
 for lang in "${LANGUAGES[@]}"; do
     command=$(cat <<EOM
-accelerate launch main.py \
+accelerate launch eval.py \
 --model replit/replit-code-v1-3b \
 --tasks multiple-"$lang" \
 --max_length_generation 512 \
