@@ -59,6 +59,11 @@ def parse_args():
         help=f"Evaluation tasks from {ALL_TASKS}",
     )
     parser.add_argument(
+        "--instruction_tokens",
+        default=None,
+        help="A series of instruction tokens used for instruction-tuning benchamrks separated by comma e.g. <user_message>,<end_user_message>,<assistant_message>",
+    )
+    parser.add_argument(
         "--batch_size",
         type=int,
         default=1,
@@ -75,6 +80,16 @@ def parse_args():
         type=str,
         default="fp32",
         help="Model precision, from: fp32, fp16 or bf16",
+    )
+    parser.add_argument(
+        "--load_in_8bit",
+        action="store_true",
+        help="Load model in 8bit",
+    )
+    parser.add_argument(
+        "--load_in_4bit",
+        action="store_true",
+        help="Load model in 4bit",
     )
     parser.add_argument(
         "--limit",
@@ -172,25 +187,48 @@ def main():
             raise ValueError(
                 f"Non valid precision {args.precision}, choose from: fp16, fp32, bf16"
             )
-        print(f"Loading tokenizer and model (in {args.precision})")
+        if args.load_in_8bit:
+            print("Loading model in 8bit")
+            current_device = accelerator.process_index
+            # the model needs to fit in one GPU
+            model = AutoModelForCausalLM.from_pretrained(
+                args.model,
+                revision=args.revision,
+                load_in_8bit=args.load_in_8bit,
+                trust_remote_code=args.trust_remote_code,
+                use_auth_token=args.use_auth_token,
+                device_map={"": current_device},
+            )
+        elif args.load_in_4bit:
+            print("Loading model in 4bit")
+            current_device = accelerator.process_index
+            # the model needs to fit in one GPU
+            model = AutoModelForCausalLM.from_pretrained(
+                args.model,
+                revision=args.revision,
+                load_in_4bit=args.load_in_4bit,
+                trust_remote_code=args.trust_remote_code,
+                use_auth_token=args.use_auth_token,
+                device_map={"": current_device},
+            )
+        else:
+            print(f"Loading model in {args.precision}")
+            from transformers import AutoConfig
+            config = AutoConfig.from_pretrained(
+                args.model,
+                trust_remote_code=args.trust_remote_code,
+                use_auth_token=args.use_auth_token,
+            )
+            config.attn_config["attn_impl"] = "triton"
 
-        from transformers import AutoConfig
-
-        config = AutoConfig.from_pretrained(
-            args.model,
-            trust_remote_code=args.trust_remote_code,
-            use_auth_token=args.use_auth_token,
-        )
-        config.attn_config["attn_impl"] = "triton"
-
-        model = AutoModelForCausalLM.from_pretrained(
-            args.model,
-            config=config,
-            revision=args.revision,
-            torch_dtype=dict_precisions[args.precision],
-            trust_remote_code=args.trust_remote_code,
-            use_auth_token=args.use_auth_token,
-        )
+            model = AutoModelForCausalLM.from_pretrained(
+                args.model,
+                config=config,
+                revision=args.revision,
+                torch_dtype=dict_precisions[args.precision],
+                trust_remote_code=args.trust_remote_code,
+                use_auth_token=args.use_auth_token,
+            )
 
         tokenizer = AutoTokenizer.from_pretrained(
             args.model,
@@ -241,6 +279,7 @@ def main():
 
     results["config"] = {
         "model": args.model,
+        "revision": args.revision,
         "temperature": args.temperature,
         "n_samples": args.n_samples,
     }
