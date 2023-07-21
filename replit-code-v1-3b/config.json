@@ -46,7 +46,8 @@
   "tokenizer_name": "replit/replit-code-v1-3b",
   "torch_dtype": "float32",
   "transformers_version": "4.28.1",
-  "use_cache": false,
+  "use_cache": true,
   "verbose": 0,
-  "vocab_size": 32768
+  "vocab_size": 32768,
+  "eos_token_id": 1
 }
