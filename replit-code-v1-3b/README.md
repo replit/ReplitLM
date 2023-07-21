@@ -176,10 +176,10 @@ Experiment with different decoding methods and parameters to get the best result
 You can also load the model in 8-bit with the `load_in_8bit=True` kwarg that uses `bitsandbytes` under the hood.
 
 First you need to  install the following additional dependanices: 
-``
+```
 accelerate
 bitsandbytes
-``
+```
 
 Then you can load the model in 8bit as follows:
 
