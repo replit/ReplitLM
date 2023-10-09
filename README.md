@@ -22,7 +22,7 @@ _This is being continuously updated to add more ways to use and build on top of 
 | Model | Checkpoint [CC BY-SA 4.0] | Vocabulary [CC BY-SA 4.0] | Code [Apache 2.0] |
 | --- | --- | --- | --- |
 | replit-code-v1-3b | [Download Link](https://huggingface.co/replit/replit-code-v1-3b/blob/main/pytorch_model.bin) | [Download](https://huggingface.co/replit/replit-code-v1-3b/resolve/main/spiece.model) | [Repo](https://github.com/replit/ReplitLM/tree/main/replit-code-v1-3b) |
-
+| replit-code-v1_5-3b | (Coming Soon) | (Coming Soon) | Coming Soon |
 
 
 ## Releases
